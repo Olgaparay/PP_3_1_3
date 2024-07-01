@@ -52,21 +52,19 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/findById{id}")  //Отображает форму редактирования пользователя по его ID
-    public String showEditUserForm(Model model, @PathVariable("id") Long id,@RequestParam("roles") Set<Long> roleIds) {
-        model.addAttribute("user", userService.findById(id));
-        model.addAttribute("roles", roleService.listRoles());
-        return "redirect:/admin";
-    }
-    @PostMapping("/admin/add{id}")
-    public String editUser(@ModelAttribute("user") User user,
-                           BindingResult bindingResult, @PathVariable("id") Long id) {
-        if (bindingResult.hasErrors()) {
-            return "redirect:/admin/";
-        }
-        userService.add(user);
-        return "redirect:/admin/";
-    }
+//    @GetMapping("/admin/update")  //Отображает форму редактирования пользователя по его ID
+//    public String showEditUserForm(Model model, @PathVariable("id") Long id) {
+//        model.addAttribute("user", userService.findById(id));
+//        model.addAttribute("allRoles", roleService.listRoles());
+//        return "user";  // Вернуть имя шаблона для редактирования пользователя
+//    }
+//
+//    @PostMapping("/admin/update")
+//    public String editUser(@ModelAttribute("user") User user, BindingResult bindingResult, @PathVariable("id") Long id) {
+//       userService.update(user);
+//        return "redirect:/admin";  // Перенаправить на страницу со списком пользователей
+//    }
+
 
 //    @PutMapping("/admin/update")  //Обрабатывает запрос на обновление информации о пользователе
 //    public String updateUser(@ModelAttribute("user") User user) {
@@ -75,7 +73,21 @@ public class AdminController {
 //        return "redirect:/admin";
 //    }
 
+    @GetMapping("/admin/edit")  //Отображает форму редактирования пользователя по его ID
+    public String showEditUserForm(@RequestParam("id") Long id, Model model) {
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+        model.addAttribute("allRoles", roleService.listRoles());
+        logger.info("Отображена форма редактирования пользователя с ID {}", id);
+        return "admin";
+    }
 
+    @PutMapping("/admin/update")  //Обрабатывает запрос на обновление информации о пользователе
+    public String updateUser(@ModelAttribute("user") User user) {
+        userService.update(user);
+        logger.info("Обновлён пользователь с ID {}", user.getId());
+        return "redirect:/admin";
+    }
     @DeleteMapping("/admin/delete")  // Обрабатывает запрос на удаление пользователя по его ID
     public String deleteUser(@RequestParam("id") Long id) {
         userService.delete(id);
