@@ -52,13 +52,13 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/{id}")  //Отображает форму редактирования пользователя по его ID
+    @GetMapping("/admin/findById{id}")  //Отображает форму редактирования пользователя по его ID
     public String showEditUserForm(Model model, @PathVariable("id") Long id,@RequestParam("roles") Set<Long> roleIds) {
         model.addAttribute("user", userService.findById(id));
         model.addAttribute("roles", roleService.listRoles());
         return "redirect:/admin";
     }
-    @PostMapping("/admin/{id}")
+    @PostMapping("/admin/add{id}")
     public String editUser(@ModelAttribute("user") User user,
                            BindingResult bindingResult, @PathVariable("id") Long id) {
         if (bindingResult.hasErrors()) {
