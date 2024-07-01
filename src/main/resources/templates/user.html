@@ -1,41 +1,73 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>UserInfo</title>
+    <title>View User Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <style>
+        .modal-dialog-centered {
+            display: flex;
+            align-items: center;
+            min-height: calc(100% - 1rem);
+        }
+        .modal-content {
+            width: 100%;
+        }
+        #open-modal:checked + .modal {
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Username</th>
-        <th>Age</th>
-        <th>Email</th>
-        <th>Password</th>
-        <th>Roles</th>
-    </tr>
-    </thead>
-    <tbody>
-    <td th:text="${user.id}"></td>
-    <td th:text="${user.firstName}"></td>
-    <td th:text="${user.lastName}"></td>
-    <td th:text="${user.username}"></td>
-    <td th:text="${user.age}"></td>
-    <td th:text="${user.email}"></td>
-    <td th:text="${user.password}"></td>
-    <td>
-        <ul>
-            <li th:each="role : ${user.roles}" th:text="${role.name}"></li>
-        </ul>
-    </td>
-    </tbody>
-</table>
-<form th:action="@{/logout}" method="post" class="logout-form">
-    <button type="submit">Logout</button>
-</form>
+<div class="container mt-4">
+    <h2>User Details</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Roles</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.age}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.password}"></td>
+            <td>
+                <ul>
+                    <li th:each="role : ${user.roles}" th:text="${role.name}"></li>
+                </ul>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/logout}" method="post" class="logout-form">
+        <button type="submit" class="btn btn-primary">Logout</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

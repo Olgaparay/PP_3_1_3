@@ -3,29 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <title>Create User</title>
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <style>
+        .modal-dialog-centered {
+            display: flex;
+            align-items: center;
+            min-height: calc(100% - 1rem);
+        }
+        .modal-content {
+            width: 100%;
+        }
+        #open-modal:checked + .modal {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-<form th:action="@{/admin/add}" th:object="${user}" method="post">
-    <label for="firstname">First Name:</label>
-    <input type="text" id="firstname" th:field="*{firstName}"/><br/>
-    <label for="lastname">Last Name:</label>
-    <input type="text" id="lastname" th:field="*{lastName}"/><br/>
-    <label for="username">Username</label>
-    <input type="text" id="username" th:field="*{username}"/><br/>
-    <label for="age">Age:</label>
-    <input type="text" id="age" th:field="*{age}"/><br/>
-    <label for="email">Email:</label>
-    <input type="text" id="email" th:field="*{email}"/><br/>
-    <label for="password">Password</label>
-    <input type="text" id="password" th:field="*{password}"/><br/>
-    <label for="roles">Roles</label>
-    <select multiple id="roles" th:field="*{roles}">
-        <option th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.name}"></option>
-    </select><br/>
-    <button type="submit">Add User</button>
-</form>
-<form th:action="@{/logout}" method="post">
-    <button type="submit">Logout</button>
-</form>
+<!-- Button to open the modal -->
+<label for="open-modal" class="btn btn-primary">Open Modal</label>
+<input type="checkbox" id="open-modal" style="display:none;">
+
+<!-- Modal -->
+<div class="modal" tabindex="-1" role="dialog" style="display:none;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create User</h5>
+                <label for="open-modal" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </label>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/admin/add}" th:object="${user}" method="post">
+                    <div class="form-group">
+                        <label for="firstname">First Name:</label>
+                        <input type="text" class="form-control" id="firstname" th:field="*{firstName}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Last Name:</label>
+                        <input type="text" class="form-control" id="lastname" th:field="*{lastName}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" th:field="*{username}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age:</label>
+                        <input type="text" class="form-control" id="age" th:field="*{age}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="text" class="form-control" id="email" th:field="*{email}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="text" class="form-control" id="password" th:field="*{password}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="roles">Roles</label>
+                        <select multiple class="form-control" id="roles" th:field="*{roles}">
+                            <option th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.name}"></option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add User</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn btn-secondary">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
